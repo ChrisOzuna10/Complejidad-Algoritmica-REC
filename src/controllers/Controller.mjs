@@ -223,38 +223,24 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document.getElementById('saveArray').addEventListener('click', () => {
-    fetch("./bussines.json")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok " + response.statusText);
-            }
-            return response.text(); // Leer la respuesta como texto
-        })
-        .then(text => {
-            try {
-                const data = JSON.parse(text); // Intentar parsear el texto como JSON
+        fetch("./bussines.json")
+            .then(response => response.json())
+            .then(data => {
                 for (let x = 0; x <= 10000; x++) {
-                    if (data[x]) { // Verificar que data[x] existe
-                        let bussines = new Bussines(data[x].name, data[x].address, data[x].city, data[x].state, data[x].postal_code);
-                        arraylist.push(bussines);
-                        if (x === 10000) {
-                            console.log("ya se guardaron todas");
-                            Swal.fire({
-                                title: "Exito",
-                                text: "Datos guardados",
-                                icon: "success"
-                            });
-                        }
-                    } else {
-                        console.log(`El índice ${x} no existe en los datos.`);
-                    }
+                    let bussines = new Bussines(data[x].name, data[x].address, data[x].city, data[x].state, data[x].postal_code);
+                    arraylist.push(bussines);
+                    if (x === 10000) {
+                        console.log("ya se guardaron todas")
+                        Swal.fire({
+                            title: "Exito",
+                            text: "Datos guardados",
+                            icon: "success"
+                        });
+                    };
                 }
-            } catch (error) {
-                console.error("Error al parsear JSON:", error.message);
-            }
-        })
-        .catch(err => console.error("Fetch error:", err.message));
-});
+            })
+            .catch(err => console.log(err));
+    });
 
 
     document.getElementById('searchButtonArray').addEventListener('click', () => {
