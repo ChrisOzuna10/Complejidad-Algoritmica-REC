@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document.getElementById('saveArray').addEventListener('click', () => {
-        fetch("../../../bussines.json")
+        fetch("./bussines.json")
             .then(response => response.json())
             .then(data => {
                 for (let x = 0; x <= 10000; x++) {
@@ -307,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document.getElementById('saveList').addEventListener('click', () => {
-        fetch("../../../bussines.json")
+        fetch("./bussines.json")
             .then(response => response.json())
             .then(data => {
                 for (let x = 0; x <= 10000; x++) {
